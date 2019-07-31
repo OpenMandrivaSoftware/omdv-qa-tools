@@ -1,0 +1,494 @@
+akonadi
+    akonadi-common
+    akonadi-devel
+    lib64KF5AkonadiAgentBase5
+    lib64KF5AkonadiCore5
+    lib64KF5AkonadiPrivate5
+    lib64KF5AkonadiWidgets5
+    lib64KF5AkonadiXml5
+    qt5-database-plugin-sqlite3
+    qt5-designer-plugin-akonadiwidgets
+khelpcenter
+    kmime
+    lib64KF5Mime5
+    lib64KF5Mime-devel
+kontactinterface
+    lib64kf5kontactinterface5
+    lib64kf5kontactinterface-devel
+kcontacts
+    lib64KF5Contacts5
+    lib64KF5Contacts-devel
+kimap
+    lib64KF5IMAP5
+    lib64KF5IMAP-devel
+kmbox
+    lib64KF5Mbox5
+    lib64KF5Mbox-devel
+kcal
+    lib64KF5CalendarCore5
+    lib64KF5CalendarCore-devel
+kpimtextedit
+    kpimtextedit-designer-devel
+    lib64KF5PimTextEdit5
+    lib64KF5PimTextEdit-devel
+kldap
+    lib64KF5Ldap5
+    lib64KF5Ldap-devel
+kidentitymanagement
+    lib64KF5IdentityManagement5
+    lib64KF5IdentityManagement-devel
+kcalutils
+    lib64KF5CalendarUtils5
+    lib64KF5CalendarUtils-devel
+ktnef
+    lib64KF5Tnef5
+    lib64KF5Tnef-devel
+kalarmcal
+    lib64KF5AlarmCal5
+    lib64KF5AlarmCal-devel
+akonadi-mime
+    lib64KF5AkonadiMime5
+    lib64KF5AkonadiMime-devel
+akonadi-contacts
+    lib64KF5AkonadiContact5
+    lib64KF5AkonadiContact-devel
+    lib64KF5ContactEditor5
+ksmtp
+    lib64kpimsmtp5
+    lib64kpimsmtp-devel
+libkgapi
+    lib64KF5GAPI-devel
+    lib64KPimGAPIBlogger5
+    lib64KPimGAPICalendar5
+    lib64KPimGAPIContacts5
+    lib64KPimGAPICore5
+    lib64KPimGAPIDrive5
+    lib64KPimGAPILatitude5
+    lib64KPimGAPIMaps5
+    lib64KPimGAPITasks5
+kmailtransport
+    lib64KF5MailTransport5
+    lib64KF5MailTransport-devel
+akonadi-notes
+    lib64KF5AkonadiNotes5
+    lib64KF5AkonadiNotes-devel
+akonadi-calendar
+    lib64KF5AkonadiCalendar5
+    lib64KF5AkonadiCalendar-devel
+akonadi-search
+    lib64KF5AkonadiSearchCore5
+    lib64KF5AkonadiSearchCore-devel
+    lib64KF5AkonadiSearchDebug5
+    lib64KF5AkonadiSearchPIM5
+    lib64KF5AkonadiSearchXapian5
+libkdepim
+    lib64KF5Libkdepim5
+    lib64KF5Libkdepim-devel
+pimcommon
+    lib64KF5PimCommon5
+    lib64KF5PimCommon-devel
+grantleetheme
+    lib64KF5GrantleeTheme5
+    lib64KF5GrantleeTheme-devel
+libkleo
+    lib64KF5Libkleo5
+    lib64KF5Libkleo-devel
+kdepim-apps-libs
+    lib64KF5FollowupReminder5
+    lib64KF5KaddressbookGrantlee5
+    lib64KF5KaddressbookImportExport5
+    lib64KF5KdepimDBusInterfaces5
+    lib64KF5PimAppsLibs-devel
+    lib64KF5SendLater5
+calendarsupport
+    lib64KF5CalendarSupport5
+    lib64KF5CalendarSupport-devel
+mailimporter
+    lib64KF5MailImporter5
+    lib64KF5MailImporterAkonadi5
+    lib64KF5MailImporter-devel
+libgravatar
+    lib64KF5Gravatar5
+    lib64KF5Gravatar-devel
+messagelib
+    lib64KF5MessageComposer5
+    lib64KF5MessageCore5
+    lib64KF5MessageLib-devel
+    lib64KF5MessageList5
+    lib64KF5MessageViewer5
+    lib64KF5MimeTreeParser5
+    lib64KF5TemplateParser5
+    lib64KF5WebEngineViewer5
+mailcommon
+    lib64KF5MailCommon5
+    lib64KF5MailCommon-devel
+baloo-widgets
+    lib64baloo-widgets-devel
+    lib64KF5BalooWidgets5
+dolphin
+    dolphin-devel
+    dolphin-handbook
+    lib64dolphinprivate5
+    lib64dolphinvcs5
+akonadi-calendar-tools
+akonadi-import-wizard
+    lib64KPimImportWizard5
+    lib64KPimImportWizard-devel
+kblog
+    lib64kblog-devel
+    lib64kf5blog5-debuginfo
+kdegraphics-mobipocket
+    lib64qmobipocket2
+    ib64qmobipocket-devel
+kdav
+    lib64KPimKDAV5
+    lib64KPimKDAV-devel
+kdepim-runtime
+    lib64akonadi_filestore5
+    lib64akonadi_singlefileresource5
+    lib64folderarchivesettings5
+    lib64kmindexreader5
+    lib64maildir5
+eventviews
+    lib64KF5EventViews5
+    lib64KF5EventViews-devel
+incidenceeditor
+    lib64KF5IncidenceEditor5
+    lib64KF5IncidenceEditor-devel
+libksieve
+    lib64KF5KManageSieve5
+    lib64KF5KSieve5
+    lib64KF5KSieve-devel
+    lib64KF5KSieveUi5
+kpkpass
+    lib64KPimPkPass5
+    lib64KPimPkPass-devel
+kitinerary
+    lib64KPimItinerary5
+    lib64KPimItinerary-devel
+kdepim-addons
+    kdepim-addons-akonadimailreader
+kdeedu-data
+libkeduvocdocument
+    lib64KEduVocDocument5
+    lib64KEduVocDocument-devel
+libkexiv2
+    lib64KF5KExiv2_5
+    lib64KF5KExiv2-devel
+libkipi
+    kipi-common
+    kipi-plugin-kxmlhelloword
+    lib64KF5Kipi5
+    lib64KF5Kipi-devel
+kqtquickcharts
+artikulate
+    lib64artikulatecore0
+    lib64artikulatelearnerprofile0
+    lib64artikulatesound0
+marble
+    lib64astro1
+    lib64marbledeclarative0
+    lib64marblewidget-qt5_28
+    marble-common
+    marble-devel
+konsole
+libkdcraw
+    lib64KF5KDcraw5
+    lib64KF5KDcraw-devel
+libksane
+    lib64KF5Sane5
+    lib64KF5Sane-devel
+analitza
+    analitza-devel
+    analitza-plots
+    lib64Analitza8
+    lib64AnalitzaGui8
+    lib64AnalitzaPlot8
+    lib64analitza-qml
+    lib64AnalitzaWidgets8
+ark
+    ark-devel
+    lib64kerfuffle19
+blinken
+    
+cantor
+    cantor-devel
+    lib64cantorlibs20
+filelight
+gwenview
+    lib64gwenviewlib5
+spectacle
+kalgebra
+kalzium
+    kalzium-devel
+    lib64compoundviewer5
+    lib64science5
+kamera
+kanagram
+kate
+    kate-extensions
+    katepart
+    kwrite
+kbruch
+kcalc
+kcharselect
+kcolorchooser
+okular
+    lib64Okular5Core9
+    okular-chm
+    okular-comicbook
+    okular-devel
+    okular-djvu
+    okular-dvi
+    okular-epub
+    okular-fax
+    okular-fb
+    okular-kimgio
+    okular-markdown
+    okular-mobile
+    okular-mobipocket
+    okular-ooo
+    okular-pdf
+    okular-plucker
+    okular-postscript
+    okular-tiff
+    okular-txt
+    okular-xps
+kdegraphics-thumbnailers
+kdf
+    lib64kdfprivate19
+kfloppy
+libkdegames
+    lib64KF5KDEGames7
+    lib64KF5KDEGames-devel
+    lib64KF5KDEGamesPrivate1
+    libkdegames-common
+    libkdegames-corebindings
+libkgeomap
+    lib64KF5KGeoMap5
+    lib64KF5KGeoMap-devel
+    libkgeomap-common
+#libkmahjongg
+    kmahjongglib
+    lib64KF5KMahjongglib5
+    lib64KF5KMahjongglib-devel
+kmahjongg
+libkcddb
+    lib64KF5Cddb5
+    lib64KF5CddbWidgets5
+    libkcddb-devel
+libkcompactdisc
+    lib64kf5compactdisc5
+    lib64kf5compactdisc-devel
+audiocd-kio
+    audiocd-kio-devel
+    lib64audiocdplugins5
+bomber
+bovo
+cervisia
+dolphin-plugins
+dragon
+ffmpegthumbs
+granatier
+juk
+kajongg
+kapman
+kapptemplate
+katomic
+kleopatra
+    lib64kleopatraclientcore1
+    lib64kleopatraclientgui1
+    lib64libkleopatra-devel
+akregator
+    lib64akregatorinterfaces5
+    lib64akregatorprivate5
+grantlee-editor
+    lib64grantleethemeeditor5
+keditbookmarks
+    lib64kbookmarkmodel_private6
+kfind
+kmail
+    akonadi-archivemail-agent
+    akonadi-followupreminder-agent
+    akonadi-mailfilter-agent
+    akonadi-sendlater-agent
+    akonadi-unifiedmailbox-agent
+    ktnef
+    lib64kmailprivate5
+kmail-account-wizard
+konqueror
+    konqueror-libkonq
+    konqueror-plugins
+    konqueror-webenginepart
+    lib64KF5Konq6
+    lib64KF5Konq-devel
+    lib64konquerorprivate5
+kontact
+    lib64kontactprivate5
+kaddressbook
+    lib64kaddressbookprivate5
+knotes
+    akonadi-notes-agent
+    lib64knotesprivate5
+    lib64notesharedprivate5
+korganizer
+    lib64korganizer_core5
+    lib64korganizer_interfaces5
+    lib64korganizerprivate5
+kwave
+mbox-importer
+pim-data-exporter
+    lib64pimsettingexporterprivate5
+pim-sieve-editor
+    lib64sieveeditor5
+kalarm
+kdialog
+akonadiconsole
+    lib64akonadiconsole5
+kblackbox
+kblocks
+kbounce
+kbreakout
+kcachegrind
+kcron
+kde-dev-scripts
+kde-dev-utils
+    kpartloader
+    kuiviewer
+kdenetwork-filesharing
+kdenlive
+kdesdk-kioslaves
+    kio-perldoc
+kdesdk-thumbnailers
+kdiamond
+kfourinline
+kgeography
+kget
+    lib64kgetcore5
+kgoldrunner
+kgpg
+khangman
+kig
+kigo
+killbots
+kiriki
+kiten
+    kiten-devel
+    lib64kiten5
+kjumpingcube
+klettres
+klickety
+klines
+kmag
+kmines
+kmix
+kmousetool
+kmouth
+kmplot
+knavalbattle
+knetwalk
+kolf
+kollision
+kolourpaint
+    kolourpaint-devel
+    lib64kolourpaint_lgpl5
+konquest
+kpat
+krdc
+    lib64krdccore5
+    lib64krdccore-devel
+kreversi
+krfb
+    lib64krfbprivate5
+kruler
+kshisen
+ksirk
+ksnakeduel
+kspaceduel
+ksquares
+ksudoku
+ksystemlog
+kteatime
+ktimer
+ktouch
+ktuberling
+kturtle
+kubrick
+kwalletmanager
+kwordquiz
+libkomparediff2
+    lib64komparediff2_5
+    lib64komparediff2_5
+lokalize
+lskat
+palapeli
+    lib64pala0
+    palapeli-devel
+parley
+picmi
+poxml
+print-manager
+rocs
+    lib64rocsgraphtheory0
+    rocs-devel
+step
+svgpart
+sweeper
+umbrello
+kio-extras
+    lib64kioarchive5
+    lib64kioarchive-devel
+    lib64molletnetwork5_19
+zeroconf-ioslave
+kaccounts-integration
+    lib64kaccounts19
+    lib64kaccounts-devel
+kaccounts-providers
+#kross-interpreters
+    kross-interpreters-python
+    kross-interpreters-ruby
+#signon-kwallet-extension
+    lib64keyring-kwallet16
+kdebugsettings
+minuet
+    lib64minuetinterfaces0.3.0
+kompare
+    kompare-devel
+    lib64komparedialogpages5
+    lib64kompareinterface5
+k3b
+    k3b-devel
+ktp-common-internals
+    lib64KTpCommonInternals9
+    lib64KTpCommonInternals-devel
+    lib64KTpLogger9
+    lib64KTpModels9
+    lib64KTpOTR9
+    lib64KTpWidgets9
+ktp-approver
+ktp-auth-handler
+ktp-contact-list
+ktp-filetransfer-handler
+ktp-kded-module
+ktp-send-file
+ktp-text-ui
+ktp-call-ui
+ktp-desktop-applets
+ktp-contact-runner
+ktp-accounts-kcm
+kamoso
+kopete
+    kopete-devel
+    lib64kopete1
+    lib64kopeteaddaccountwizard1
+    lib64kopetechatwindow_shared1
+    lib64kopetecontactlist1
+    lib64kopeteidentity1
+    lib64kopete_oscar1
+    lib64kopeteprivacy1
+    lib64kopetestatusmenu1
+    lib64kopete_videodevice1
+    lib64oscar1
+kbackup
+kimagemapeditor
+    kimagemapeditor-handbook

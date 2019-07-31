@@ -1,0 +1,222 @@
+#!/bin/bash
+set -x
+# This script will compare the contents of a given testing repository
+# with the primary build lists that are used to build the KDE and Qt packages.
+# This allows easy determination as to when to 
+# a. Update a rolling installation from testing without breaking anything
+# b. Give an indication that all builds are complete so that QA testing can commence.
+# This needs some thought as some repos might not have completed builds.
+# Need to make the check in main and testing
+
+#sequence
+#1 check for qt in testing
+#if this fails check main
+#if complete
+#check for kf5 libs
+usage_help() {
+
+	printf "%s\n" "Please run script with arguments"
+	printf "%s\n" "usage $0 [options]"
+    printf "%s\n" "general options:"
+    printf "%s\n" "--arch= Architecture of packages: i586, x86_64, znver1, arrmv7hl, aarch64, risc64"
+    printf "%s\n" "--repo= The repo to run the tests on. i.e. testing, release"
+    printf "%s\n" "--repver= Version for software repository: 3.0,rock (aka 4.0), rolling etc"
+    printf "%s\n" "--release_id= Release identifer: alpha, beta, rc, final"
+    printf "%s\n" "--qt= Run the Qt file list"
+    printf "%s\n" "--kf= Run the Kde5 file list"
+    printf "%s\n" "--pd= Run the Plasma Desktop file list"
+    printf "%s\n" "--kapps= Run the KDE Apps file list"
+    printf "%s\n" "--ver= Add a version number to the file list i.e. 5.12"
+    printf "%s\n" "--allists= Run the Plasma Desktop file list"
+    printf "%s\n" "--allrepos= Run the KDE Apps file list"
+    printf "%s\n" "--allarches= Add a version number to the file list i.e. 5.12"
+    printf "%s\n" " "
+    printf "%s\n" "For example:"
+    printf "%s\n" "check_build_completion --arch=x86_64  --repo=testing --relver=rolling --ver=5.12 --kf"
+    printf "%s\n" "Note that when --ver is set to you cannot use the --allists flag"
+#        printf "%s\n" "For detailed usage instructions consult the files in /usr/share/omdv-build-iso/docs/"
+        printf "%s\n" "Exiting."
+#        exit
+
+}
+
+main() {
+if [ $# -ge 1 ]; then
+    for k in "$@"; do
+	case "$k" in
+	--arch=*)
+        	    ARCH=${k#*=}
+                    case "$ARCH" in
+                    znver1)
+                        ARCH="$ARCH"
+                        ;;
+                    x86_64)
+                        ARCH="$ARCH"
+                        ;;
+                    aarch64)
+                        ARCH="$ARCH"
+                        ;;
+                    risc64)
+                        ARCH="$ARCH"
+                        ;;
+                    armv7hl)
+                        ARCH="$ARCH"
+                        ;;
+                    i686)
+                        ARCH="$ARCH"
+                        ;;				
+				esac
+				shift
+				;;
+    --repo=*)
+                REPO=${k#*=}
+                    case "$REPO" in
+                    release)
+                        REPO=release
+                        ;;
+                    testing)
+                        REPO=testing
+                        ;;
+                    esac
+                shift
+                ;;
+    --qt)
+                QT=new_qt_lst
+                shift
+                ;;
+    --pd)
+                PD=new_pd_lst
+                shift
+                ;;
+    --kf)
+                KF=new_kf_lst
+                shift
+                ;;
+    --kapps)
+                KAPPS=new_kapps_lst
+                shift
+                ;;
+                
+    --relver=*) 
+                RELVER=${k#*=}
+                    case "$RELVER" in
+                    cooker)
+                        TREE=cooker
+                        ;;
+                    lx4)
+                        TREE=4.0
+                        ;;
+                    rock)
+                        TREE=rock
+                        ;;
+                    rolling)
+                        TREE=rolling
+                        ;;	
+                esac
+                shift
+                ;;
+                
+    --ver=*)    VER=${k#*=}
+                shift
+                ;;
+    --allists)
+                ALL_LISTS=1
+                shift
+                ;;
+    --allrepos)
+                ALLREPOS=1
+                shift
+                ;;
+    --allarches)
+                ALLARCHES=1
+                shift
+                ;;
+    --help)
+                usage_help
+                shift
+                ;;
+ #       *)
+#		    usage_help
+#        	    ;;
+    esac
+    shift
+done
+else
+    usage_help
+fi
+
+if [ ! -d ~/repo_checks ]; then
+    mkdir -p ~/repo_checks
+fi
+cp *_lst ~/repo_checks/
+cd ~/repo_checks
+
+if [ -z "$REPO" ]; then
+REPO="release testing"
+fi
+if [ -n "$ALL_LISTS"  ]; then
+BLISTS="new_qt_lst new_kf_lst pd.buildlistm kapps.buildlistm"
+else
+BLISTS="$QT $PD $KF $KAPPS"
+fi
+if [ -n "$ALLARCHES" ]; then
+ARCH="x86_64 i686 znver1 aarch64 armv7hl riscv64"
+fi
+if [ -z "$RELVER" ]; then
+    RELVER="cooker 4.0 rolling rock"
+fi
+if [ -z "$VER" ]; then
+    if [ -n "$ALL_LISTS" ]; then
+        printf '%s \n' "You may only use version with a single rpm list"
+    exit
+    fi
+fi
+/bin/rm UNBUILT* BUILT* DUPLICATES* *PACKAGES 2>/dev/null
+#aarch64 armv7hl riscv64"
+for r in $REPO; do
+    for i in $ARCH; do
+        for l in $RELVER; do
+            PKGS=http://"abf-downloads.openmandriva.org/$l/repository/$i/main/$r/"
+            curl -s -L $PKGS |grep '^<a' |cut -d'"' -f2 >"$i-$r-$l-PACKAGES"
+        done
+    done
+done
+
+# Next we need to assign the list of the repo contents to a variable
+BLISTSR="new_kapps_lst new_kf_lst new_pd_lst new_qt_lst"
+
+# Now check whether the package exists
+
+for l1 in $BLISTS; do
+    for a in $ARCH; do
+# To save having multiple lists we strip out the 74 from lib64 prefix
+        if [ "$ARCH" == "i686" ] || [ "$ARCH" == "armv7hl" ]; then
+            l2=$(cat "$l1" | sed 's/64//')
+        else l2=$(cat "$l1")
+        fi
+        for b in $RELVER; do
+            while read -r LINE; do
+                echo "$LINE" | grep "^#.*"
+                if [ "$?" != "0" ]; then
+                    if [ -n "$VER" ]; then
+                        G=`grep "^$LINE-$VER.*" $a-$r-$b-PACKAGES`
+                    else
+                        G=`grep "^$LINE-[0-9].*" $a-$r-$b-PACKAGES`
+                            if [ "$?" != "0" ]; then
+                                echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r-$b"
+                            else 
+                                echo "Build complete for $a $G" >>"BUILT-$a-$r-$b"
+                            fi
+                    fi
+                COUNT=`printf "%s" "$G" | grep -c "^"`
+                if [ "$COUNT" -gt 1 ]; then
+                    printf '%s \n' "$G" >> "DUPLICATES-$a-$r-$b"
+                fi
+               fi 
+            done <<< "$l2"
+        done 
+    done 
+done
+}
+
+main "$@"
