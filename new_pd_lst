@@ -13,7 +13,7 @@ lib64processcore7
 lib64processui7
 libksysguard
 bluedevil
-kdecoration
+#kdecoration
 lib64kdecorations2_5
 lib64kdecorations2-devel
 lib64kdecorations2private6
@@ -66,8 +66,8 @@ khotkeys
 khotkeys-devel
 lib64khotkeysprivate5
 plasma-desktop
-libkfontinst5
-libkfontinstui5
+lib64kfontinst5
+lib64kfontinstui5
 plasma-nm
 kdeplasma-addons
 lib64plasmacomicprovidercore1
