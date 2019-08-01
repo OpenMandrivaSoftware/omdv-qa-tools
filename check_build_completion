@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 # This script will compare the contents of a given testing repository
 # with the primary build lists that are used to build the KDE and Qt packages.
 # This allows easy determination as to when to 
