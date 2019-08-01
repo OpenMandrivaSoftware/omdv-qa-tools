@@ -186,41 +186,42 @@ done
 BLISTSR="new_kapps_lst new_kf_lst new_pd_lst new_qt_lst"
 
 # Now check whether the package exists
-
-for l1 in $BLISTS; do
-    for a in $ARCH; do
-# To save having multiple lists we strip out the 74 from lib64 prefix
-        if [ "$ARCH" == "i686" ] || [ "$ARCH" == "armv7hl" ]; then
-            l2=$(cat "$l1" | sed 's/64//')
-        else l2=$(cat "$l1")
-        fi
-        for b in $RELVER; do
-            while read -r LINE; do
-                echo "$LINE" | grep "^#.*"
-                if [ "$?" != "0" ]; then
-                    if [ -n "$VER" ]; then
-                        G=`grep "^$LINE-$VER.*" $a-$r-$b-PACKAGES`
-                         if [ "$?" != "0" ]; then
-                             echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r-$b"
-                         else 
-                             echo "Build complete for $a $G" >>"BUILT-$a-$r-$b"
-                         fi
-                    else
-                        G=`grep "^$LINE-[0-9].*" $a-$r-$b-PACKAGES`
+for r1 in $REPO; do
+    for l1 in $BLISTS; do
+        for a in $ARCH; do
+    # To save having multiple lists we strip out the 74 from lib64 prefix
+            if [ "$ARCH" == "i686" ] || [ "$ARCH" == "armv7hl" ]; then
+                l2=$(cat "$l1" | sed 's/64//')
+            else l2=$(cat "$l1")
+            fi
+            for b in $RELVER; do
+                while read -r LINE; do
+                    echo "$LINE" | grep "^#.*"
+                    if [ "$?" != "0" ]; then
+                        if [ -n "$VER" ]; then
+                            G=`grep "^$LINE-$VER.*" $a-$r-$b-PACKAGES`
                             if [ "$?" != "0" ]; then
-                                echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r-$b"
+                                echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r1-$b"
                             else 
-                                echo "Build complete for $a $G" >>"BUILT-$a-$r-$b"
+                                echo "Build complete for $a $G" >>"BUILT-$a-$r1-$b"
                             fi
+                        else
+                            G=`grep "^$LINE-[0-9].*" $a-$r1-$b-PACKAGES`
+                                if [ "$?" != "0" ]; then
+                                    echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r1-$b"
+                                else 
+                                    echo "Build complete for $a $G" >>"BUILT-$a-$r1-$b"
+                                fi
+                        fi
+                    COUNT=`printf "%s" "$G" | grep -c "^"`
+                    if [ "$COUNT" -gt 1 ]; then
+                        printf '%s \n' "$G" >> "DUPLICATES-$a-$r1-$b"
                     fi
-                COUNT=`printf "%s" "$G" | grep -c "^"`
-                if [ "$COUNT" -gt 1 ]; then
-                    printf '%s \n' "$G" >> "DUPLICATES-$a-$r-$b"
-                fi
-               fi 
-            done <<< "$l2"
+                fi 
+                done <<< "$l2"
+            done 
         done 
-    done 
+    done
 done
 }
 
