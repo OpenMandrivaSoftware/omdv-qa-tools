@@ -7,3 +7,6 @@ repositories.
 This provides a simple check on whether a package set has been fully built. The script can also checks for duplicates 
 and with the use of the --ver= option is capable of producing a list of duplicates that can be used to remove any 
 rogue files that may be present in the repository.
+
+TO DO:
+Create a separate list for akonadi which uses different version numbers to the other KF5 libs. It may be necessary to use combined lists under the --kf flag to pick these up. Needs some thought

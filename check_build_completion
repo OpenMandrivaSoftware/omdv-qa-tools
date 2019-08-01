@@ -200,6 +200,11 @@ for l1 in $BLISTS; do
                 if [ "$?" != "0" ]; then
                     if [ -n "$VER" ]; then
                         G=`grep "^$LINE-$VER.*" $a-$r-$b-PACKAGES`
+                         if [ "$?" != "0" ]; then
+                             echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r-$b"
+                         else 
+                             echo "Build complete for $a $G" >>"BUILT-$a-$r-$b"
+                         fi
                     else
                         G=`grep "^$LINE-[0-9].*" $a-$r-$b-PACKAGES`
                             if [ "$?" != "0" ]; then
