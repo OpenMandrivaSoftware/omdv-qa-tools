@@ -20,8 +20,7 @@ usage_help() {
     printf "%s\n" "general options:"
     printf "%s\n" "--arch= Architecture of packages: i586, x86_64, znver1, arrmv7hl, aarch64, risc64"
     printf "%s\n" "--repo= The repo to run the tests on. i.e. testing, release"
-    printf "%s\n" "--repver= Version for software repository: 3.0,rock (aka 4.0), rolling etc"
-    printf "%s\n" "--release_id= Release identifer: alpha, beta, rc, final"
+    printf "%s\n" "--release= Version for software repository: 3.0,rock (aka 4.0), rolling etc"
     printf "%s\n" "--qt= Run the Qt file list"
     printf "%s\n" "--kf= Run the Kde5 file list"
     printf "%s\n" "--pd= Run the Plasma Desktop file list"
@@ -226,3 +225,6 @@ done
 }
 
 main "$@"
+
+#Need to be able to check for the presence of a package in all repos.
+# This needs as a minimum package name and version. How do we do this when we don't know what packages are contained in a build list. We gettt the build list from abf?

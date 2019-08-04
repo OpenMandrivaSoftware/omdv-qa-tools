@@ -9,4 +9,4 @@ and with the use of the --ver= option is capable of producing a list of duplicat
 rogue files that may be present in the repository.
 
 TO DO:
-Create a separate list for akonadi which uses different version numbers to the other KF5 libs. It may be necessary to use combined lists under the --kf flag to pick these up. Needs some thought
+Create a separate list for akonadi which uses different version numbers to the other KF5 libs. It may be necessary to use combined lists under the --kf flag to pick these up. Needs some thought.
