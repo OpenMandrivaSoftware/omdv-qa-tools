@@ -1,0 +1,120 @@
+#!/bin/bash
+set -x
+# This script will compare the contents of a given testing repository
+# with it's coresponding main repository and delete duplicates from the testing directory 
+# when a file already exists in the main repository.
+# This script is only requires until ABF is fixed to work properly with kahinah
+
+usage_help() {
+
+	printf "%s\n" "Please run script with arguments"
+	printf "%s\n" "usage $0 [options]"
+    printf "%s\n" "general options:"
+    printf "%s\n" "--arch= Architecture of packages: i586, x86_64, znver1, arrmv7hl, aarch64, risc64"
+    printf "%s\n" "--allarches run the script for all architectures"
+    printf "%s\n" " "
+    printf "%s\n" "For example:"
+    printf "%s\n" "check_testing_dupes --arch=x86_64"
+    printf "%s\n" "Note that when --ver is set to you cannot use the --allists flag"
+#        printf "%s\n" "For detailed usage instructions consult the files in /usr/share/omdv-build-iso/docs/"
+        printf "%s\n" "Exiting."
+#        exit
+
+}
+
+#main() {
+if [ $# -ge 1 ]; then
+    for k in "$@"; do
+	case "$k" in
+	--arch=*)
+        	    ARCH=${k#*=}
+                    case "$ARCH" in
+                    znver1)
+                        ARCH="$ARCH"
+                        ;;
+                    x86_64)
+                        ARCH="$ARCH"
+                        ;;
+                    aarch64)
+                        ARCH="$ARCH"
+                        ;;
+                    risc64)
+                        ARCH="$ARCH"
+                        ;;
+                    armv7hl)
+                        ARCH="$ARCH"
+                        ;;
+                    i686)
+                        ARCH="$ARCH"
+                        ;;				
+				esac
+				shift
+				;;
+#    --allarches)
+#                ALLARCHES=1
+#                shift
+#                ;;
+    --help)
+                usage_help
+                shift
+                ;;
+ #       *)
+#		    usage_help
+#        	    ;;
+    esac
+    shift
+done
+else
+    usage_help
+fi
+
+REPO="release testing"
+RELVER="rolling"
+
+if [ -z "$ARCH" ]; then
+ARCH="x86_64 i686 znver1 aarch64 armv7hl riscv64"
+fi
+
+/bin/rm DUPLICATES* *PACKAGES 2>/dev/null
+
+FindDupes() {
+for r in $REPO; do
+    for a in $ARCH; do
+        for b in $RELVER; do
+            find "/var/lib/openmandriva/abf-downloads/rolling/repository/$a/main/$r/"  -name "*.rpm" -type f -printf "%f\n"  > "$b-$a-$r-PACKAGES"
+            DUPLIST=`find "/var/lib/openmandriva/abf-downloads/$b/repository/$a/main/testing/" " -name "*.rpm" -type f -printf "%f\n`
+            while read -r LINE; do
+                G=`grep "^$LINE" "$b-$a-release-PACKAGES"`
+                COUNT=`printf "%s" "$G" | grep -c "^"`
+                if [ "$COUNT" -eq 1 ]; then
+                    printf '%s \n' "$G" >> "DUPLICATES-$b-$a-testing"
+                fi
+            done <<< $DUPLIST
+        done 
+    done
+done
+}
+
+RemDupes() {
+#set -x
+ls -a DUPLICATES*
+if [ $? -ne 0 ]; then
+    printf '%s\n' "No duplicates to remove"
+    exit
+fi
+LISTS=`ls -a DUPLICATES* | sort -n`
+echo $LISTS
+exit
+
+for l in $LISTS; do
+    a=$(cut -f 3 -d - <<<$l)
+    while read -r LINE; do
+      /bin/rm  /var/lib/openmandriva/abf-downloads/rolling/repository/$a/main/testing/$LINE
+      done < ./$l
+    done
+}
+
+FindDupes
+RemDupes
+
+/bin/rm DUPLICATES* *PACKAGES 2>/dev/null
