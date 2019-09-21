@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x
+set -x
 # This script will compare the contents of a given testing repository
 # with the primary build lists that are used to build the KDE and Qt packages.
 # This allows easy determination as to when to 
@@ -38,8 +38,20 @@ usage_help() {
 #        exit
 
 }
+check_version() {
+for r2 in $REPO; do
+    for a in $ARCH; do
+    if [ $r2 == "release" ]; then
+       RVER=`cat $l1-BUILT-$a-$r2-rolling | awk -F "-" '{print $(NF-2)}' | uniq -c  | [ $(wc -l) -eq 1 ] |
+       echo $?`
+    elif [ $r2 == "testing" ]; then
+        TVER=`cat $l1-BUILT-$a-$r2-rolling | awk -F "-" '{print $(NF-2)}' | uniq -c  | [ $(wc -l) -eq 1 ]` echo $?
+    fi
+    done
+done
+}
 
-main() {
+#main() {
 if [ $# -ge 1 ]; then
     for k in "$@"; do
 	case "$k" in
@@ -140,8 +152,8 @@ if [ $# -ge 1 ]; then
     esac
     shift
 done
-else
-    usage_help
+#else
+#    usage_help
 fi
 
 if [ ! -d ~/repo_checks ]; then
@@ -154,7 +166,7 @@ if [ -z "$REPO" ]; then
 REPO="release testing"
 fi
 if [ -n "$ALL_LISTS"  ]; then
-BLISTS="new_qt_lst new_kf_lst pd.buildlistm kapps.buildlistm"
+BLISTS="new_qt_lst new_kf_lst new_pd_lst new_kapps_lst"
 else
 BLISTS="$QT $PD $KF $KAPPS"
 fi
@@ -164,13 +176,13 @@ fi
 if [ -z "$RELVER" ]; then
     RELVER="cooker 4.0 rolling rock"
 fi
-if [ -z "$VER" ]; then
+if [ -n "$VER" ]; then
     if [ -n "$ALL_LISTS" ]; then
         printf '%s \n' "You may only use version with a single rpm list"
     exit
     fi
 fi
-/bin/rm UNBUILT* BUILT* DUPLICATES* *PACKAGES 2>/dev/null
+/bin/rm *-UNBUILT* *-BUILT* DUPLICATES* *PACKAGES 2>/dev/null
 #aarch64 armv7hl riscv64"
 for r in $REPO; do
     for i in $ARCH; do
@@ -190,8 +202,8 @@ for r1 in $REPO; do
         for a in $ARCH; do
     # To save having multiple lists we strip out the 74 from lib64 prefix
             if [ "$ARCH" == "i686" ] || [ "$ARCH" == "armv7hl" ]; then
-                l2=$(cat "$l1" | sed 's/64//')
-            else l2=$(cat "$l1")
+                l2=$(<"$l1" | sed 's/64//')
+            else l2=$(<"$l1")
             fi
             for b in $RELVER; do
                 while read -r LINE; do
@@ -200,31 +212,48 @@ for r1 in $REPO; do
                         if [ -n "$VER" ]; then
                             G=`grep "^$LINE-$VER.*" $a-$r-$b-PACKAGES`
                             if [ "$?" != "0" ]; then
-                                echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r1-$b"
+                                echo "Build not complete for $a $LINE" >>"$l1-UNBUILT-$a-$r1-$b"
                             else 
-                                echo "Build complete for $a $G" >>"BUILT-$a-$r1-$b"
+                                echo "Build complete for $a $G" >>"$l1-BUILT-$a-$r1-$b"
                             fi
                         else
                             G=`grep "^$LINE-[0-9].*" $a-$r1-$b-PACKAGES`
                                 if [ "$?" != "0" ]; then
-                                    echo "Build not complete for $a $LINE" >>"UNBUILT-$a-$r1-$b"
+                                    echo "Build not complete for $a $LINE" >>"$l1-UNBUILT-$a-$r1-$b"
                                 else 
-                                    echo "Build complete for $a $G" >>"BUILT-$a-$r1-$b"
+                                    echo "Build complete for $a $G" >>"$l1-BUILT-$a-$r1-$b"
                                 fi
                         fi
                     COUNT=`printf "%s" "$G" | grep -c "^"`
                     if [ "$COUNT" -gt 1 ]; then
                         printf '%s \n' "$G" >> "DUPLICATES-$a-$r1-$b"
                     fi
-                fi 
+                fi
+                if [ $r1 == "release" ]; then
+                    LCOUNTR=`wc -l < $l1-UNBUILT-$a-release-$b`
+                else
+                    LCOUNTT=`wc -l < $l1-UNBUILT-$a-testing-$b`
+                fi
                 done <<< "$l2"
             done 
         done 
     done
 done
-}
 
-main "$@"
+[ $ALL_LISTS ] && echo "Cannot check version when --allists is selected"
+[ ! $ALLREPOS ] && echo "Cannot check version unless --allrepos is set"
+if [ $LCOUNTR -eq 1 ]; then
+    check_version
+#else
+#broken_repo
+#    if [ TVER > RVER ]; then
+#    update_ready
+#elif [ LCOUNTT > 1 ]; then
+#    check_release
+fi    
+
+#    if [ $RVER$a  
+#cat BUILT-x86_64-testing-rolling | uniq -c  | [ $(wc -l) -eq 1 ] ; echo $?'
 
 #Need to be able to check for the presence of a package in all repos.
 # This needs as a minimum package name and version. How do we do this when we don't know what packages are contained in a build list. We gettt the build list from abf?
